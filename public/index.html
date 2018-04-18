@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="noteApp">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0"/>
+  <title>Note App</title>
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link href="css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+</head>
+<body ng-controller="noteController">
+  <nav class="black" role="navigation">
+    <div class="nav-wrapper container"><a id="logo-container" href="#" class="brand-logo">Note App</a>
+      <ul class="right hide-on-med-and-down">
+        <li><a href="#add" class="btn tooltipped btn-floating btn-large waves-effect waves-light blue modal-trigger" data-position="bottom" data-tooltip="Add a new note"><i class="material-icons">add</i></a></li>
+      </ul>
+
+      <ul id="nav-mobile" class="sidenav">
+        <li><a href="#"><i class="material-icons">add</i>Add note</a></li>
+      </ul>
+      <a href="#" data-target="nav-mobile" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+    </div>
+  </nav>
+  <!-- Add Note Modal -->
+  <div id="add" class="modal" ng-controller="addNoteController">
+    <div class="modal-content">
+        <form class="col s12">
+          <h3>Create Note</h3>
+          <div class="row">
+            <div class="input-field col s12">
+                <input id="noteTitle" type="text" class="validate" ng-model="noteTitle">
+                <label for="noteTitle">Title</label>
+            </div>
+            <div class="input-field col s12">
+              <textarea id="noteText" type="text" class="materialize-textarea" ng-model="noteText"></textarea>
+              <label for="noteText">Text</label>
+            </div>
+          </div>
+        </form>
+    </div>
+    <div class="modal-footer">
+      <a href="#!" class="modal-action modal-close waves-effect btn-flat" ng-click="saveNote()">Save</a>
+    </div>
+  </div>
+  <div class="container" ng-init="loadNotes()">
+    <div class="section">
+      <div class="row">
+        <div class="col s12 m3" ng-repeat="note in notes">
+            <div class="card small">
+              <div>
+                <span class="card-title center">{{note.noteTitle}}</span>
+              </div>
+              <div class="card-content">
+                <p>{{note.noteText}}</p>
+              </div>
+              <div class="card-action">
+                <a href="#" ng-click="deleteNote(note._id)"><i class="material-icons">delete</i></a>
+                <a href="#edit" class="modal-trigger" ng-click="loadNote(note._id)"><i class="material-icons">edit</i></a>
+              </div>
+            </div>
+          </div>
+        </div>
+    </div>
+  </div>
+  <!-- Edit Note Modal -->
+  <div id="edit" class="modal">
+    <div class="modal-content">
+        <form class="col s12">
+          <h3>Edit Note</h3>
+          <div class="row">
+            <div class="input-field col s12">
+                <input placeholder="Title" type="text" class="validate" ng-model="selectedNoteTitle">
+            </div>
+            <div class="input-field col s12">
+              <textarea placeholder="Text" type="text" class="materialize-textarea" ng-model="selectedNoteText"></textarea>
+            </div>
+          </div>
+        </form>
+        <div class="modal-footer">
+          <a href="#!" class="modal-action modal-close waves-effect btn-flat" ng-click="updateNote()">Save</a>
+        </div>
+    </div>
+  </div>
+  <!--  Scripts-->
+  <script src="js/libs/jquery-2.1.1.min.js"></script>
+  <script src="js/libs/materialize.min.js"></script>
+  <script src="js/libs/angular.min.js"></script>
+  <script src="js/init.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
